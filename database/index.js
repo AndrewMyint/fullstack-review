@@ -13,7 +13,7 @@ db.on('disconnected', () => {
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
-  id: {type: String, unique: true},
+  id: { type: String, unique: true },
   name: String,
   url: String,
   fork_Counts: Number
@@ -21,20 +21,22 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (repoId, repoName, url, forkCounts) => {
+let save = (arr) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
-  var repo = new Repo({
-    id: repoId,
-    name: repoName,
-    url: url,
-    fork_Counts: forkCounts
-  })
-  repo.save((err) => {
-    if (err) console.log('repo is not saved: ', err);
-    else console.log('repo is saved');
-  })
+  Repo.insertMany(arr, {ordered: false}, function(err) {
+    if (err) console.log('*********', err);
+  });
+
+  // repo.save((err) => {
+  //   if (err) console.log('repo is not saved: ', err);
+  //   else console.log('repo is saved');
+  // })
+
+}
+let findAll = () => {
+
 }
 
 module.exports.save = save;
