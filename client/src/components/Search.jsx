@@ -23,17 +23,21 @@ class Search extends React.Component {
     this.props.onSearch(this.state.term);
   }
 
+  generateName() {
+    var arr = this.props.repos.map((name) => {
+      return <li>{name}</li>
+    })
+    // arr.unshift(<div>This is a test<div>);
+    return arr;
+  }
+
   render() {
     return (<div>
       <h4>Add more repos!</h4>
       Enter a github username: <input value={this.state.terms} onChange={(e) => {e.persist();this.onChange(e)}}/>
       <button onClick={this.search.bind(this)}> Add Repos </button>
       <div>
-        {
-          this.props.repos.map((name) => {
-            return <li>{name}</li>
-          })
-        }
+        {this.generateName()}
       </div>
     </div>)
   }
