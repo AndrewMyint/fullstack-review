@@ -48,7 +48,8 @@ app.get('/repos', function (req, res) {
     var arr = [];
     console.log('length ******', data.length);
     for (var i = 0; i < data.length; i++) {
-      arr.push(data[i].name);
+      var obj = {name: data[i].name, url: data[i].url}
+      arr.push(obj);
     }
     // console.log(arr);
     res.send(arr);
