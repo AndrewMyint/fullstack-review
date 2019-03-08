@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const gitHubApi = require('../helpers/github');
 const morgan = require('morgan');
-const {save} = require('../database/index');
+const {save, findAll} = require('../database/index');
 // console.log(save);
 // console.log('*************', getReposByUsername);
 let app = express();
@@ -42,7 +42,17 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-
+  findAll((err, data) => {
+    if (err) console.log(err);
+    else
+    var arr = [];
+    console.log('length ******', data.length);
+    for (var i = 0; i < data.length; i++) {
+      arr.push(data[i].name);
+    }
+    // console.log(arr);
+    res.send(arr);
+  })
   // TODO - your code here!
   // This route should send back the top 25 repos
 

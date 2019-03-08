@@ -35,8 +35,12 @@ let save = (arr) => {
   // })
 
 }
-let findAll = () => {
-
+let findAll = (cb) => {
+  Repo.find((err, data) => {
+    if (err) cd(err, null);
+    else cb(null, data);
+  }).sort({fork_Counts: -1}).limit(25);
 }
 
 module.exports.save = save;
+module.exports.findAll = findAll;

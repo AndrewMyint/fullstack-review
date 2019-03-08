@@ -12,7 +12,22 @@ class App extends React.Component {
     }
 
   }
-
+  componentDidMount() {
+    $.ajax({
+      url: '/repos',
+      method: 'GET',
+      success: (data) => {
+        console.log('this is data from gt server', data);
+        // might need to call setState();
+        this.setState({
+          repos : data.slice()
+        })
+      },
+      error: (err) => {
+        console.log('this is error from server', err);
+      }
+    });
+  }
   search (term) {
     console.log(`${term} was searched`);
     // TODO
@@ -34,10 +49,11 @@ class App extends React.Component {
   }
 
   render () {
+    console.log('********repostsate', this.state.repos)
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
+      <Search onSearch={this.search.bind(this)} repos={this.state.repos}/>
     </div>)
   }
 }
