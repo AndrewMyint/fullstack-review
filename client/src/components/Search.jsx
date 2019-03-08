@@ -27,7 +27,7 @@ class Search extends React.Component {
     var arr = this.props.repos.map((repo) => {
       return <div><a href = {repo.url}>{repo.name}</a></div>
     })
-    // arr.unshift(<div>This is a test<div>);
+    // arr.unshift("<div>This is a test<div>");
     return arr;
   }
 

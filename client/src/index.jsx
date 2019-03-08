@@ -13,6 +13,9 @@ class App extends React.Component {
 
   }
   componentDidMount() {
+
+  }
+  get() {
     $.ajax({
       url: '/repos',
       method: 'GET',
@@ -36,9 +39,8 @@ class App extends React.Component {
       method: 'POST',
       data: term,
       contentType: 'text/plain',
-      success: (data) => {
-        console.log('this is data from server', data);
-        // might need to call setState();
+      success: () => {
+        this.get();
       },
       error: (err) => {
         console.log('this is error from server', err);
