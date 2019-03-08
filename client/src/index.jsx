@@ -30,7 +30,7 @@ class App extends React.Component {
       }
     });
     // make ajax get request to server
-    // call setState with the data from res of server
+    // call setState with the data from res of server, not sure
   }
 
   render () {
