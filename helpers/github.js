@@ -1,5 +1,5 @@
 const request = require('request');
-const config = require('../config.js');
+const config = require('../config/config');
 
 let getReposByUsername = (username, callback) => {
   // TODO - Use the request module to request repos for a specific
