@@ -10,9 +10,6 @@ app.use(morgan('dev'));
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.text());
 //app.get('/');
-const dotenv = require('dotenv');
-dotenv.config();
-console.log("++++++++++",process.env.TEST);
 app.post('/repos', function (req, res) {
   // TODO - your code here!
   // console.log('inside server', req.body);
