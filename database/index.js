@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+// mongoose.connect('mongodb://localhost/fetcher');
+
+
+if (process.env.NODE_ENV === 'production') {
+  // we are in production
+  mongoose.connect(process.env.DATABASE_URL);
+} else {
+//   // we are in development
+  mongoose.connect('mongodb://localhost/fetchgiger');
+}
+
+
 var db = mongoose.connection;
 db.on('connected', () => {
   console.log("mongoose is connected to database");
@@ -28,11 +39,6 @@ let save = (arr) => {
   Repo.insertMany(arr, {ordered: false}, function(err) {
     if (err) console.log('*********', err);
   });
-
-  // repo.save((err) => {
-  //   if (err) console.log('repo is not saved: ', err);
-  //   else console.log('repo is saved');
-  // })
 
 }
 let findAll = (cb) => {
