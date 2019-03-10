@@ -10,14 +10,20 @@ app.use(morgan('dev'));
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.text());
 //app.get('/');
+const dotenv = require('dotenv');
+dotenv.config();
+console.log("++++++++++",process.env.TEST);
 app.post('/repos', function (req, res) {
   // TODO - your code here!
   // console.log('inside server', req.body);
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
-
-
+  console.log("***********termmmm", req.body)
+  var resSend = () => {
+    res.send('true');
+    // res.end();
+  }
   gitHubApi.getReposByUsername(req.body, (err, res, body) => {
     if (err) {
       console.log(err);
@@ -32,13 +38,16 @@ app.post('/repos', function (req, res) {
         }
       });
       // console.log('repoooooooo',repos);
-      save(repos);
+      save(repos, (err, data, res) => {
+        if (err) console.log(err);
+        else {
+          resSend();
+        }
+      });
     }
   });
-
-  res.redirect('/repos');
-  res.end();
-
+  // res.send('true');
+  // res.end();
 });
 
 app.get('/repos', function (req, res) {
@@ -62,6 +71,9 @@ app.get('/repos', function (req, res) {
 let port = 1128;
 
 app.listen(process.env.PORT || port, function() {
-  console.log(`listening on port ${process.env.PORT}`);
+  if (process.env.PORT) {
+    console.log(`listening on port ${process.env.PORT}`);
+  } else {
+    console.log(`listening on port ${port}`);
+  }
 });
-
